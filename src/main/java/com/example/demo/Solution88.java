@@ -14,6 +14,24 @@ package com.example.demo;
  */
 public class Solution88 {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int resPtr = n + m - 1;
+        n--;
+        m--;
 
+        while (resPtr >= 0) {
+            if (m < 0 && n >= 0) {
+                nums1[resPtr--] = nums2[n--];
+                continue;
+            } else if (n < 0 && m >= 0) {
+                nums1[resPtr--] = nums1[m--];
+                continue;
+            }
+
+            if (nums1[m] > nums2[n]) {
+                nums1[resPtr--] = nums1[m--];
+            } else {
+                nums1[resPtr--] = nums2[n--];
+            }
+        }
     }
 }
