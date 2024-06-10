@@ -19,7 +19,7 @@ package com.example.demo;
  */
 public class Solution189 {
     public void rotate(int[] nums, int k) {
-        if (k == 0 || nums.length  < 2) {
+        if (k == 0 || nums.length < 2) {
             return;
         }
 
@@ -28,31 +28,27 @@ public class Solution189 {
         }
 
         int len = nums.length;
-        int currentIndex = 0;
-        int currentValue = nums[currentIndex];
-        int prevIndex = 0;
-        while (len > 0) {
-            int targetIndex = currentIndex + k;
-            if (targetIndex >= nums.length) {
-                targetIndex = targetIndex - nums.length;
-            }
-
-            int tempValue = nums[targetIndex];
-            nums[targetIndex] = currentValue;
-
-            if (prevIndex == targetIndex || targetIndex == 0) {
-                if (currentIndex < nums.length - 1) {
-                    currentIndex++;
+        for (int startIndex = 0; len > 0; startIndex++) {
+            int currentIndex = startIndex;
+            int currentValue = nums[currentIndex];
+            while (len > 0) {
+                int targetIndex = currentIndex + k;
+                if (targetIndex >= nums.length) {
+                    targetIndex = targetIndex - nums.length;
                 }
-                currentValue = nums[currentIndex];
-                len--;
-                continue;
-            }
 
-            currentValue = tempValue;
-            prevIndex = currentIndex;
-            currentIndex = targetIndex;
-            len--;
+                int tempValue = nums[targetIndex];
+                nums[targetIndex] = currentValue;
+
+                currentValue = tempValue;
+                currentIndex = targetIndex;
+                len--;
+
+                if (currentIndex == startIndex) {
+                    //loop detection
+                    break;
+                }
+            }
         }
     }
 }
